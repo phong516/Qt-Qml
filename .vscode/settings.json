@@ -1,0 +1,12 @@
+{
+    "emeraldwalk.runonsave": {
+        "autoClearConsole": true,
+        "commands": [
+            {
+                "match": ".*\\.qml$",
+                "isAsync": true,
+                "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Get-Process qml -ErrorAction SilentlyContinue | Stop-Process -Force; Clear-Host; & 'C:\\Qt\\6.8.3\\mingw_64\\bin\\qml.exe' '${file}'\""
+            }
+        ]
+    }
+}

@@ -1,0 +1,41 @@
+classDiagram
+    class TodoApp {
+        -TodoModel todoModel
+        -TodoListView todoListView
+        -TodoInput todoInput
+        +int total
+        +int done
+        +int todo
+    }
+
+    class TodoModel {
+        +int doneCount
+        +string filteredCriteria
+        +addTask(desc)
+        +removeTask(index)
+        +toggleDone(index)
+        +setFilter(criteria)
+    }
+
+    class TodoListView {
+        -TodoDelegate delegate
+        +model todoModel
+    }
+
+    class TodoDelegate {
+        +string desc
+        +bool done
+        +int index
+        -ListView view
+    }
+
+    class TodoInput {
+        +signal taskSubmitted(string text)
+    }
+
+    TodoApp *-- TodoModel : Instantiates & owns
+    TodoApp *-- TodoListView : Contains
+    TodoApp *-- TodoInput : Contains
+    TodoListView *-- TodoDelegate : Uses as delegate
+    TodoInput ..> TodoApp : Emits signal to parent
+    TodoDelegate ..> TodoModel : Interacts via ListView.view.model

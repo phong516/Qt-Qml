@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QML Student Progress</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        pre.mermaid {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .progress-section, .task-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .task-section:last-child {
+            border-bottom: none;
+        }
+        .status-completed {
+            color: green;
+            font-weight: bold;
+        }
+        .status-in-progress {
+            color: orange;
+            font-weight: bold;
+        }
+        .status-pending {
+            color: gray;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QML Student Progress Dashboard</h1>
+
+        <div class="progress-section">
+            <h2>Overall Progress</h2>
+            <!-- Student Progress from student_progress.md -->
+            <h3>Student Progress</h3>
+            <ul>
+                <li><strong>Current Level:</strong> Beginner</li>
+                <li><strong>Current Task:</strong> Rewriting TodoApp into modules</li>
+                <li><strong>Skills Practiced:</strong>
+                    <ul>
+                        <li>Using `Column` for vertical layout</li>
+                        <li>Understanding `anchors` and `spacing`</li>
+                        <li>Using `implicitHeight` for dynamic sizing</li>
+                    </ul>
+                </li>
+                <li><strong>Challenges Faced:</strong>
+                    <ul>
+                        <li>Adjusting `Column` margins inside a parent `Rectangle`</li>
+                        <li>Avoiding manual height calculations</li>
+                    </ul>
+                </li>
+                <li><strong>Next Steps:</strong>
+                    <ul>
+                        <li>Explore `ColumnLayout` for advanced layout control</li>
+                        <li>Practice reusable components</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="task-section">
+            <h2>Current Module Refactoring: TodoApp</h2>
+            <h3>Architectural Diagram (Modular Todo App)</h3>
+            <p>This diagram outlines the new modular structure of the Todo Application. As tasks related to each component are completed, their status will be reflected here.</p>
+            <pre class="mermaid">
+classDiagram
+    class TodoApp {
+        -TodoModel todoModel
+        -TodoListView todoListView
+        -TodoInput todoInput
+        +int total
+        +int done
+        +int todo
+    }
+
+    class TodoModel {
+        +int doneCount
+        +string filteredCriteria
+        +addTask(desc)
+        +removeTask(index)
+        +toggleDone(index)
+        +setFilter(criteria)
+    }
+
+    class TodoListView {
+        -TodoDelegate delegate
+        +model todoModel
+    }
+
+    class TodoDelegate {
+        +string desc
+        +bool done
+        +int index
+        -ListView view
+    }
+
+    class TodoInput {
+        +signal taskSubmitted(string text)
+    }
+
+    TodoApp *-- TodoModel : Instantiates & owns
+    TodoApp *-- TodoListView : Contains
+    TodoApp *-- TodoInput : Contains
+    TodoListView *-- TodoDelegate : Uses as delegate
+    TodoInput ..> TodoApp : Emits signal to parent
+    TodoDelegate ..> TodoModel : Interacts via ListView.view.model
+            </pre>
+            <p><strong>Legend for Task Progress:</strong></p>
+            <ul>
+                <li>`TodoModel.qml`: <span class="status-pending">Pending Refactor</span></li>
+                <li>`TodoDelegate.qml`: <span class="status-pending">Pending Refactor</span></li>
+                <li>`TodoInput.qml`: <span class="status-completed">Completed Refactor</span></li>
+                <li>`TodoListView.qml`: <span class="status-pending">Pending Refactor</span></li>
+                <li>`TodoApp.qml`: <span class="status-pending">Pending Refactor</span></li>
+            </ul>
+        </div>
+
+        <h2>Previous Tasks</h2>
+        <div class="task-section">
+            <h3>Task 001 — Traffic Light</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
+                <li><strong>Score:</strong> Visual Accuracy: 9/10, Layout Logic: 8/10, Anchor Understanding: 7/10, Cleanliness: 8/10</li>
+                <li><strong>Feedback:</strong> Successfully implemented a vertical traffic light layout. Minor issues with `anchors.margins` understanding, but resolved. Good use of `Column` and `spacing`.</li>
+            </ul>
+        </div>
+        <div class="task-section">
+            <h3>Task 002 — Profile Card</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
+                <li><strong>Score:</strong> Visual Accuracy: 9/10, Layout Logic: 8/10, Anchor Understanding: 8/10, Cleanliness: 8/10</li>
+                <li><strong>Feedback:</strong> Profile card layout is visually correct and dynamic height is implemented. Minor issues with `implicitHeight` handling initially, but resolved. Good use of `Image` and `Text` components.</li>
+            </ul>
+        </div>
+        <div class="task-section">
+            <h3>Task 003 — Calculator Layout</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
+                <li><strong>Score:</strong> Visual Accuracy: 10/10, Layout Logic: 9/10, Anchor Understanding: 9/10, Cleanliness: 9/10</li>
+                <li><strong>Feedback:</strong> Excellent use of `GridLayout` for arranging buttons in a grid. Dynamic layout with proper use of `Layout.fillHeight` and `Layout.fillWidth`. Minor improvements can be made in spacing and alignment for better aesthetics.</li>
+            </ul>
+        </div>
+        <div class="task-section">
+            <h3>Task 004 — Todo List with ListView (Monolithic)</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed (as monolithic)</span></li>
+                <li><strong>Goal:</strong> Build a dynamic todo list using `ListView`.</li>
+                <li><strong>Learning Target:</strong> Understand `ListView` and `ListModel`. Learn to use `delegate` for dynamic item rendering. Practice adding and removing items from a list.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
