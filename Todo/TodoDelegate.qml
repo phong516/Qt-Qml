@@ -8,16 +8,20 @@ FocusScope {
     required property string desc
     signal deleteRequested(string uuid)
     implicitHeight: layout.implicitHeight
-    implicitWidth: 500
+    implicitWidth: layout.implicitWidth
     RowLayout {
         id: layout
+        anchors.fill: parent
         Frame {
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Label {
-               text: desc
+                anchors.fill: parent
+                text: desc
             }
         }
         Button {
+            Layout.rightMargin: 10
             text: "Delete"
             onClicked: {
                 root.deleteRequested(uuid)

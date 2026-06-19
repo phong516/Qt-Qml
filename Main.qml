@@ -5,8 +5,8 @@ import Todo
 
 ApplicationWindow {
     id: root
-    width: 640
-    height: 480
+    width: 500
+    height: 500
     visible: true
     title: "ToDo App"
 
@@ -15,20 +15,21 @@ ApplicationWindow {
     }
 
     ColumnLayout {
+        id: layout
         anchors.fill: parent
         TodoInput {
-            onTaskSubmitted: {
+            Layout.fillWidth: true
+            onTaskSubmitted: (text) => {
                 todoModel.addTask(text)
             }
         }
         TodoListView {
-            Layout.fillWidth: true
+            Layout.fillWidth: parent.width
             Layout.fillHeight: true
             model: todoModel
             delegate: TodoDelegate {
-                uuid: model.uuid
-                desc: model.desc
-                onDeleteRequested: {
+                width: ListView.view.width
+                onDeleteRequested: (uuid) => {
                     todoModel.removeTask(uuid)
                 }
             }
