@@ -4,6 +4,8 @@ import QtCore
 ListModel {
     id: root
     property int doneCount: 0
+    property int totalCount: count
+    property int todoCount: totalCount - doneCount
     signal filterChanged(string filter)
     // example data
     // ListElement {uuid: "uuid", desc: "desc", done: false}
@@ -27,10 +29,11 @@ ListModel {
                 remove(i)
             }
         }
+        updateCount()
     }
 
-    function update() {
-        doneCount = 0
+    function updateCount() {
+        resetCount()
         for (let i = 0; i < count; i++) {
             if (get(i).done) {
                 doneCount++
@@ -38,12 +41,17 @@ ListModel {
         }
     }
 
-    function toggleDone(uuid) {
+    function resetCount() {
+        doneCount = 0
+    }
+
+    function setDone(uuid, done) {
         for (let i = 0; i < count; i++) {
             if (get(i).uuid === uuid) {
-                get(i).done = !get(i).done
+                get(i).done = done
             }
         }
+        updateCount()
     }
 
     function setFilter(filter) {

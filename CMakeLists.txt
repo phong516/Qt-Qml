@@ -20,7 +20,7 @@ qt_add_qml_module(applearn
 )
 
 add_subdirectory(Todo)
-target_link_libraries(applearn PRIVATE todoplugin)
+target_link_libraries(applearn PRIVATE Todo)
 
 qt_add_resources(applearn "qrc"
     PREFIX
@@ -34,9 +34,9 @@ qt_add_resources(applearn "qrc"
 # explicit, fixed bundle identifier manually though.
 set_target_properties(applearn PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.applearn
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
+    # MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    # MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    # MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 

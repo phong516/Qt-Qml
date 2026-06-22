@@ -7,24 +7,23 @@ FocusScope {
     required property string uuid
     required property string desc
     signal deleteRequested(string uuid)
+    signal checkedChanged(string uuid, bool checked)
     implicitHeight: layout.implicitHeight
     implicitWidth: layout.implicitWidth
     RowLayout {
         id: layout
         anchors.fill: parent
-        Frame {
+        CheckBox {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Label {
-                anchors.fill: parent
-                text: desc
-            }
+            text: desc
+            onCheckedChanged: root.checkedChanged(root.uuid, checked)
         }
         Button {
             Layout.rightMargin: 10
             text: "Delete"
             onClicked: {
-                root.deleteRequested(uuid)
+                root.deleteRequested(root.uuid);
             }
         }
     }

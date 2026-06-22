@@ -1,4 +1,4 @@
-qt_add_qml_module(todoplugin
+qt_add_qml_module(Todo
     URI Todo
     VERSION 1.0
     QML_FILES
@@ -6,4 +6,5 @@ qt_add_qml_module(todoplugin
         TodoInput.qml
         TodoListView.qml
         TodoModel.qml
+        TodoCount.qml
 )
