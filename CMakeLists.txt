@@ -3,11 +3,22 @@ cmake_minimum_required(VERSION 3.16)
 project(learn VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(QT_QML_GENERATE_QMLLS_INI ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick Core5Compat)
 
-qt_standard_project_setup(REQUIRES 6.8)
+if(QT_VERSION VERSION_GREATER_EQUAL "6.4")
+    set(QT_QML_GENERATE_QMLLS_INI ON)
+endif()
+
+if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
+    qt_standard_project_setup(REQUIRES 6.2)
+else()
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_AUTOUIC ON)
+endif()
 
 qt_add_executable(applearn
     main.cpp
@@ -15,6 +26,7 @@ qt_add_executable(applearn
 
 qt_add_qml_module(applearn
     URI learn
+    VERSION 1.0
     QML_FILES
         Main.qml
 )
