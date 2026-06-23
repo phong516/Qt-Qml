@@ -9,7 +9,6 @@ ApplicationWindow {
     height: 500
     visible: true
     title: "ToDo App"
-
     TodoModel {
         id: todoModel
     }
@@ -29,6 +28,9 @@ ApplicationWindow {
             doneCount: todoModel.doneCount
             totalCount: todoModel.totalCount
             todoCount: todoModel.todoCount
+            onFilterChanged: (filter) => {
+                todoModel.setFilter(filter)
+            }
         }
 
         TodoInput {
@@ -38,17 +40,19 @@ ApplicationWindow {
             }
         }
         TodoListView {
-            Layout.fillWidth: parent.width
+            Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.bottomMargin: 10
             model: todoModel
-            delegate: TodoDelegate {
-                width: ListView.view.width
-                onDeleteRequested: (uuid) => {
-                    todoModel.removeTask(uuid)
-                }
-                onCheckedChanged: (uuid, checked) => {
-                    todoModel.setDone(uuid, checked)
+            delegate: Component {
+                TodoDelegate {
+                    width: ListView.view.width
+                    onDeleteRequested: (uuid) => {
+                        todoModel.removeTask(uuid)
+                    }
+                    onCheckedChanged: (uuid, checked) => {
+                        todoModel.setDone(uuid, checked)
+                    }
                 }
             }
         }
