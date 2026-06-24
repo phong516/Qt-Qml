@@ -62,19 +62,27 @@
             <!-- Student Progress from student_progress.md -->
             <h3>Student Progress</h3>
             <ul>
-                <li><strong>Current Level:</strong> Beginner</li>
-                <li><strong>Current Task:</strong> Rewriting TodoApp into modules</li>
+                <li><strong>Current Level:</strong> Intermediate</li>
+                <li><strong>Current Task:</strong> Completed — awaiting Task 006</li>
                 <li><strong>Skills Practiced:</strong>
                     <ul>
-                        <li>Using `Column` for vertical layout</li>
-                        <li>Understanding `anchors` and `spacing`</li>
-                        <li>Using `implicitHeight` for dynamic sizing</li>
+                        <li>Using <code>Column</code> for vertical layout</li>
+                        <li>Understanding <code>anchors</code> and <code>spacing</code></li>
+                        <li>Using <code>implicitHeight</code> for dynamic sizing</li>
+                        <li>QML module system (<code>qmldir</code>, CMake plugin targets)</li>
+                        <li><code>DelegateModel</code> + <code>DelegateModelGroup</code> for list filtering</li>
+                        <li>Signal chains across multiple components</li>
+                        <li><code>ListModel.setProperty()</code> for safe model mutation</li>
+                        <li>UUID-based item identity in QML/JS</li>
                     </ul>
                 </li>
                 <li><strong>Challenges Faced:</strong>
                     <ul>
-                        <li>Adjusting `Column` margins inside a parent `Rectangle`</li>
+                        <li>Adjusting <code>Column</code> margins inside a parent <code>Rectangle</code></li>
                         <li>Avoiding manual height calculations</li>
+                        <li><code>onFilterChanged</code> arrow function not receiving parameter — QML property-change signals don't pass the new value</li>
+                        <li><code>get(i).done = done</code> silently failing — <code>ListModel</code> requires <code>setProperty()</code></li>
+                        <li>Understanding <code>DelegateDataObject</code> structure (<code>.model</code>, <code>.inDone</code>, <code>.inTodo</code>)</li>
                     </ul>
                 </li>
                 <li><strong>Next Steps:</strong>
@@ -135,11 +143,17 @@ classDiagram
             </pre>
             <p><strong>Legend for Task Progress:</strong></p>
             <ul>
-                <li>`TodoModel.qml`: <span class="status-pending">Pending Refactor</span></li>
-                <li>`TodoDelegate.qml`: <span class="status-pending">Pending Refactor</span></li>
-                <li>`TodoInput.qml`: <span class="status-completed">Completed Refactor</span></li>
-                <li>`TodoListView.qml`: <span class="status-pending">Pending Refactor</span></li>
-                <li>`TodoApp.qml`: <span class="status-pending">Pending Refactor</span></li>
+                <li><code>TodoModel.qml</code>: <span class="status-completed">Completed</span></li>
+                <li><code>TodoDelegate.qml</code>: <span class="status-completed">Completed</span></li>
+                <li><code>TodoInput.qml</code>: <span class="status-completed">Completed</span></li>
+                <li><code>TodoListView.qml</code>: <span class="status-completed">Completed</span></li>
+                <li><code>TodoCount.qml</code>: <span class="status-completed">Completed</span></li>
+                <li><code>Main.qml</code> (wiring): <span class="status-completed">Completed</span></li>
+            </ul>
+            <p><strong>Bugs fixed during task:</strong></p>
+            <ul>
+                <li><code>onFilterChanged</code> in Main.qml — arrow function parameter was <code>undefined</code>; fixed by reading <code>countSection.filter</code> directly.</li>
+                <li><code>setDone()</code> in TodoModel.qml — <code>get(i).done = done</code> silently fails; fixed with <code>setProperty(i, "done", done)</code>.</li>
             </ul>
         </div>
 
@@ -171,9 +185,18 @@ classDiagram
         <div class="task-section">
             <h3>Task 004 — Todo List with ListView (Monolithic)</h3>
             <ul>
-                <li><strong>Status:</strong> <span class="status-completed">Completed (as monolithic)</span></li>
-                <li><strong>Goal:</strong> Build a dynamic todo list using `ListView`.</li>
-                <li><strong>Learning Target:</strong> Understand `ListView` and `ListModel`. Learn to use `delegate` for dynamic item rendering. Practice adding and removing items from a list.</li>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
+                <li><strong>Goal:</strong> Build a dynamic todo list using <code>ListView</code>.</li>
+                <li><strong>Learning Target:</strong> Understand <code>ListView</code> and <code>ListModel</code>. Learn to use <code>delegate</code> for dynamic item rendering. Practice adding and removing items from a list.</li>
+            </ul>
+        </div>
+        <div class="task-section">
+            <h3>Task 005 — Modular Todo App</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
+                <li><strong>Components:</strong> <code>TodoModel</code>, <code>TodoDelegate</code>, <code>TodoInput</code>, <code>TodoListView</code>, <code>TodoCount</code>, <code>Main.qml</code></li>
+                <li><strong>Score:</strong> Architecture: 9/10, Signal Design: 9/10, Filtering Logic: 10/10, Cleanliness: 9/10</li>
+                <li><strong>Feedback:</strong> Clean component decomposition with well-defined signals and <code>required property</code> contracts. Excellent use of <code>DelegateModel</code> + <code>DelegateModelGroup</code> for all/done/todo filtering. Two bugs caught and fixed during development. UUID-based task identity is a solid design choice.</li>
             </ul>
         </div>
     </div>
