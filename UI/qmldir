@@ -2,5 +2,4 @@ module Todo 1.0
 TodoListView 1.0 TodoListView.qml
 TodoDelegate 1.0 TodoDelegate.qml
 TodoInput 1.0 TodoInput.qml
-TodoModel 1.0 TodoModel.qml
 TodoCount 1.0 TodoCount.qml

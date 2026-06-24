@@ -4,7 +4,7 @@ project(learn VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Core5Compat)
+find_package(Qt6 REQUIRED COMPONENTS Quick Core5Compat Core)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.4")
     set(QT_QML_GENERATE_QMLLS_INI ON)
@@ -31,8 +31,11 @@ qt_add_qml_module(applearn
         Main.qml
 )
 
-add_subdirectory(Todo)
-target_link_libraries(applearn PRIVATE Todo)
+add_subdirectory(UI)
+target_link_libraries(applearn PRIVATE UI)
+
+add_subdirectory(Model)
+target_link_libraries(applearn PRIVATE Model)
 
 qt_add_resources(applearn "qrc"
     PREFIX
@@ -53,7 +56,7 @@ set_target_properties(applearn PROPERTIES
 )
 
 target_link_libraries(applearn
-    PRIVATE Qt6::Quick Qt6::Core5Compat
+    PRIVATE Qt6::Quick Qt6::Core5Compat Qt6::Core
 )
 
 install(TARGETS applearn

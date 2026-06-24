@@ -1,5 +1,4 @@
 import QtQuick
-import Todo
 
 Item {
     id: root
