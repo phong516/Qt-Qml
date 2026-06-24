@@ -1,33 +1,27 @@
 ### Student Progress
-- **Current Level:** Beginner
-- **Current Task:** None (All tasks completed)
+- **Current Level:** Intermediate
+- **Current Task:** None (Task 005 completed)
 - **Skills Practiced:**
   - Using `Column` for vertical layout
   - Understanding `anchors` and `spacing`
   - Using `implicitHeight` for dynamic sizing
+  - QML module system (`qmldir`, CMake plugin targets)
+  - `DelegateModel` and `DelegateModelGroup` for list filtering
+  - Signal chains across multiple components
+  - `ListModel.setProperty()` for safe model mutation
+  - UUID generation in QML/JS
 - **Challenges Faced:**
   - Adjusting `Column` margins inside a parent `Rectangle`
   - Avoiding manual height calculations
+  - `onFilterChanged` arrow function not receiving parameter (QML property-change signals don't pass value)
+  - `get(i).done = done` silently failing — `ListModel` requires `setProperty()`
+  - Understanding `DelegateDataObject` structure (`.model`, `.inDone`, `.inTodo`)
 - **Next Steps:**
-  - Explore `ColumnLayout` for advanced layout control
-  - Practice reusable components
+  - Explore animations and transitions
+  - Practice C++ `QAbstractListModel` integration
 
 ### Current Task
-- **Task:** Task 004 — Todo List with ListView
-- **Goal:** Build a dynamic todo list using `ListView`.
-- **Learning Target:**
-  - Understand `ListView` and `ListModel`.
-  - Learn to use `delegate` for dynamic item rendering.
-  - Practice adding and removing items from a list.
-- **Allowed Tools:**
-  - `ListView`
-  - `ListModel`
-  - `TextInput`
-  - `Button`
-- **Forbidden Tools:**
-  - `Repeater`
-  - `GridLayout`
-- **Next Steps:** Awaiting new task assignment.
+- **Task:** Completed — awaiting Task 006 assignment.
 
 ### Task 001 — Traffic Light
 - **Status:** Completed
@@ -72,3 +66,24 @@
 - **Next Steps:**
   - Explore `ListView` for dynamic data-driven layouts.
   - Practice adding interactivity to the calculator (e.g., button click handling).
+
+### Task 004 — Todo List with ListView (Monolithic)
+- **Status:** Completed
+- **Feedback:**
+  - Successfully built a dynamic todo list using `ListView` and `ListModel`.
+  - Correct use of `delegate` for item rendering.
+  - Foundation for the modular refactor in Task 005.
+
+### Task 005 — Modular Todo App
+- **Status:** Completed
+- **Components Built:** `TodoModel`, `TodoDelegate`, `TodoInput`, `TodoListView`, `TodoCount`
+- **Score:**
+  - **Architecture:** 9/10
+  - **Signal Design:** 9/10
+  - **Filtering Logic:** 10/10
+  - **Cleanliness:** 9/10
+- **Feedback:**
+  - Clean component decomposition with well-defined signals and required properties.
+  - Excellent use of `DelegateModel` + `DelegateModelGroup` for all/done/todo filtering.
+  - Two bugs caught and fixed: QML property-change signal parameter misuse, and `ListModel` direct mutation.
+  - UUID-based task identity is a solid design choice.

@@ -28,9 +28,7 @@ ApplicationWindow {
             doneCount: todoModel.doneCount
             totalCount: todoModel.totalCount
             todoCount: todoModel.todoCount
-            onFilterChanged: (filter) => {
-                todoModel.setFilter(filter)
-            }
+            onFilterChanged: todoModel.setFilter(countSection.filter)
         }
 
         TodoInput {

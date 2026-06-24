@@ -48,7 +48,7 @@ ListModel {
     function setDone(uuid, done) {
         for (let i = 0; i < count; i++) {
             if (get(i).uuid === uuid) {
-                get(i).done = done
+                setProperty(i, "done", done)
             }
         }
         updateCount()
