@@ -31,6 +31,9 @@ qt_add_qml_module(applearn
         Main.qml
 )
 
+add_subdirectory(Backend)
+target_link_libraries(applearn PRIVATE Backend)
+
 add_subdirectory(UI)
 target_link_libraries(applearn PRIVATE UI)
 
