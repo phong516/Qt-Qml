@@ -21,7 +21,8 @@
   - Practice C++ `QAbstractListModel` integration
 
 ### Current Task
-- **Task:** Completed — awaiting Task 006 assignment.
+- **Task:** Task 006 — C++ Backend Integration (Pending)
+- **Goal:** Integrate C++ `TodoManager` as backend model for QML
 
 ### Task 001 — Traffic Light
 - **Status:** Completed
@@ -76,14 +77,25 @@
 
 ### Task 005 — Modular Todo App
 - **Status:** Completed
-- **Components Built:** `TodoModel`, `TodoDelegate`, `TodoInput`, `TodoListView`, `TodoCount`
+- **Components Built:** `Model/TodoModel.qml`, `UI/TodoDelegate.qml`, `UI/TodoInput.qml`, `UI/TodoListView.qml`, `UI/TodoCount.qml`
 - **Score:**
   - **Architecture:** 9/10
   - **Signal Design:** 9/10
   - **Filtering Logic:** 10/10
   - **Cleanliness:** 9/10
+  - **Modularity/Reusability:** 10/10
 - **Feedback:**
   - Clean component decomposition with well-defined signals and required properties.
   - Excellent use of `DelegateModel` + `DelegateModelGroup` for all/done/todo filtering.
   - Two bugs caught and fixed: QML property-change signal parameter misuse, and `ListModel` direct mutation.
   - UUID-based task identity is a solid design choice.
+  - **Module separation completed:** TodoModel moved to Model module, UI components moved to UI module for better reusability.
+
+### Task 006 — C++ Backend Integration (Pending)
+- **Status:** Not Started
+- **Goal:** Integrate C++ `TodoManager` as backend model for QML
+- **Learning Target:** 
+  - Expose C++ `QAbstractListModel` to QML
+  - Use `qt_add_qml_module` for C++ plugin registration
+  - Replace QML `ListModel` with C++ model
+  - Understand QML-C++ data binding

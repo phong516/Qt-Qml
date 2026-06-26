@@ -1,13 +1,14 @@
 #pragma once
 #include <QObject>
 #include <QtQml>
+#include <TodoModel.hpp>
 
 class TodoManager: public QObject
 {
     Q_OBJECT
     QML_ELEMENT
 public:
-    explicit TodoManager(QObject* parent = nullptr): QObject(parent) {}
+    explicit TodoManager(QObject* parent = nullptr): QObject(parent), m_todoModel(new TodoModel(this)){}
 
     enum class Filter {All, Done, Todo};
     Q_ENUM(Filter)
@@ -17,7 +18,7 @@ public:
     Q_INVOKABLE bool setDone(const QString& uuid, bool done);
     Q_INVOKABLE bool setFilter(Filter filter);
 private:
-    QObject* m_model{nullptr};
+    TodoModel* m_todoModel{nullptr};
     bool updateCount();
     bool resetCount();
 };

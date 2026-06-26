@@ -4,4 +4,6 @@ qt_add_qml_module(Backend
     SOURCES
         TodoManager.hpp
         TodoManager.cpp
+        TodoModel.hpp
+        TodoModel.cpp
 )

@@ -63,7 +63,7 @@
             <h3>Student Progress</h3>
             <ul>
                 <li><strong>Current Level:</strong> Intermediate</li>
-                <li><strong>Current Task:</strong> Completed — awaiting Task 006</li>
+                <li><strong>Current Task:</strong> Task 008 — Refactor Todo QML Project for C++ Backend Integration (Pending)</li>
                 <li><strong>Skills Practiced:</strong>
                     <ul>
                         <li>Using <code>Column</code> for vertical layout</li>
@@ -100,55 +100,84 @@
             <p>This diagram outlines the new modular structure of the Todo Application. As tasks related to each component are completed, their status will be reflected here.</p>
             <pre class="mermaid">
 classDiagram
-    class TodoApp {
-        -TodoModel todoModel
-        -TodoListView todoListView
-        -TodoInput todoInput
-        +int total
-        +int done
-        +int todo
+    class Main {
+        +TodoModel todoModel
+        +TodoListView todoListView
+        +TodoInput todoInput
+        +TodoCount countSection
     }
 
     class TodoModel {
         +int doneCount
-        +string filteredCriteria
+        +int todoCount
+        +int totalCount
+        +string filter
         +addTask(desc)
-        +removeTask(index)
-        +toggleDone(index)
+        +removeTask(uuid)
+        +setDone(uuid, done)
         +setFilter(criteria)
     }
 
     class TodoListView {
-        -TodoDelegate delegate
         +model todoModel
+        +delegate TodoDelegate
     }
 
     class TodoDelegate {
         +string desc
         +bool done
-        +int index
-        -ListView view
+        +string uuid
+        +signal deleteRequested(uuid)
+        +signal checkedChanged(uuid, done)
     }
 
     class TodoInput {
-        +signal taskSubmitted(string text)
+        +signal taskSubmitted(text)
     }
 
-    TodoApp *-- TodoModel : Instantiates & owns
-    TodoApp *-- TodoListView : Contains
-    TodoApp *-- TodoInput : Contains
-    TodoListView *-- TodoDelegate : Uses as delegate
-    TodoInput ..> TodoApp : Emits signal to parent
-    TodoDelegate ..> TodoModel : Interacts via ListView.view.model
+    class TodoCount {
+        +int doneCount
+        +int totalCount
+        +int todoCount
+        +string filter
+        +signal filterChanged
+    }
+
+    class Model {
+        <<QML Module>>
+        TodoModel
+    }
+
+    class UI {
+        <<QML Module>>
+        TodoListView
+        TodoDelegate
+        TodoInput
+        TodoCount
+    }
+
+    Main *-- TodoModel : uses
+    Main *-- TodoListView : uses
+    Main *-- TodoInput : uses
+    Main *-- TodoCount : uses
+    TodoListView *-- TodoDelegate : delegates
+    TodoInput ..> Main : emits signal
+    TodoDelegate ..> TodoModel : interacts via model
+    TodoCount ..> TodoModel : reads counts
+    TodoModel -- Model : defined in
+    TodoListView -- UI : defined in
+    TodoDelegate -- UI : defined in
+    TodoInput -- UI : defined in
+    TodoCount -- UI : defined in
             </pre>
             <p><strong>Legend for Task Progress:</strong></p>
             <ul>
-                <li><code>TodoModel.qml</code>: <span class="status-completed">Completed</span></li>
-                <li><code>TodoDelegate.qml</code>: <span class="status-completed">Completed</span></li>
-                <li><code>TodoInput.qml</code>: <span class="status-completed">Completed</span></li>
-                <li><code>TodoListView.qml</code>: <span class="status-completed">Completed</span></li>
-                <li><code>TodoCount.qml</code>: <span class="status-completed">Completed</span></li>
-                <li><code>Main.qml</code> (wiring): <span class="status-completed">Completed</span></li>
+                <li><code>Model/TodoModel.qml</code>: <span class="status-completed">Completed Refactor</span></li>
+                <li><code>UI/TodoDelegate.qml</code>: <span class="status-completed">Completed Refactor</span></li>
+                <li><code>UI/TodoInput.qml</code>: <span class="status-completed">Completed Refactor</span></li>
+                <li><code>UI/TodoListView.qml</code>: <span class="status-completed">Completed Refactor</span></li>
+                <li><code>UI/TodoCount.qml</code>: <span class="status-completed">Completed Refactor</span></li>
+                <li><code>Main.qml</code> (wiring): <span class="status-completed">Completed Refactor</span></li>
             </ul>
             <p><strong>Bugs fixed during task:</strong></p>
             <ul>
@@ -157,13 +186,30 @@ classDiagram
             </ul>
         </div>
 
+        <div class="task-section">
+            <h3>Task 008 — Refactor Todo QML Project for C++ Backend Integration (Pending)</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-pending">Not Started</span></li>
+                <li><strong>Goal:</strong> Refactor the current QML Todo application into a production-style architecture suitable for Qt/QML applications, preparing for C++ backend integration.</li>
+                <li><strong>Learning Target:</strong> Separate presentation from business logic, implement a dedicated QML backend object, maintain ListModel as pure data model, separate UI components, utilize signals/properties/function calls for communication, design for C++ integration.</li>
+            </ul>
+        </div>
+
         <h2>Previous Tasks</h2>
         <div class="task-section">
-            <h3>Task 001 — Traffic Light</h3>
+            <h3>Task 007 — Hello World Layout</h3>
             <ul>
                 <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
-                <li><strong>Score:</strong> Visual Accuracy: 9/10, Layout Logic: 8/10, Anchor Understanding: 7/10, Cleanliness: 8/10</li>
-                <li><strong>Feedback:</strong> Successfully implemented a vertical traffic light layout. Minor issues with `anchors.margins` understanding, but resolved. Good use of `Column` and `spacing`.</li>
+                <li><strong>Score:</strong> Visual Accuracy: 10/10, Layout Logic: 10/10, Anchor Understanding: 10/10, Cleanliness: 10/10</li>
+                <li><strong>Feedback:</strong> Successfully implemented a centered "Hello World!" in a responsive window using Rectangle and Text elements with anchors.</li>
+            </ul>
+        </div>
+        <div class="task-section">
+            <h3>Task 006 — C++ Backend Integration (Pending)</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-pending">Not Started</span></li>
+                <li><strong>Goal:</strong> Integrate C++ <code>TodoManager</code> as backend model for QML</li>
+                <li><strong>Learning Target:</strong> Expose C++ <code>QAbstractListModel</code> to QML, use <code>qt_add_qml_module</code> for C++ plugin registration</li>
             </ul>
         </div>
         <div class="task-section">

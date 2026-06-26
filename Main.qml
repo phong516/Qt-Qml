@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import UI
-import Model
 
 ApplicationWindow {
     id: root

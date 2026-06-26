@@ -6,4 +6,5 @@ qt_add_qml_module(UI
         TodoInput.qml
         TodoListView.qml
         TodoCount.qml
+        TodoModel.qml
 )

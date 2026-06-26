@@ -37,9 +37,6 @@ target_link_libraries(applearn PRIVATE Backend)
 add_subdirectory(UI)
 target_link_libraries(applearn PRIVATE UI)
 
-add_subdirectory(Model)
-target_link_libraries(applearn PRIVATE Model)
-
 qt_add_resources(applearn "qrc"
     PREFIX
         "/"
