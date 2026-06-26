@@ -1,9 +1,8 @@
 #include "TodoManager.hpp"
 #include <QUuid>
 #include <QVariant>
-#include <QMetaObject>
 
-bool TodoManager::setModel(QObject* model)
+bool TodoManager::setModel(TodoModel* model)
 {
     m_model = model;
     return true;
