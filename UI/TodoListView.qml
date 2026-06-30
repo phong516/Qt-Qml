@@ -1,8 +1,9 @@
 import QtQuick
+import Backend
 
 Item {
     id: root
-    required property ListModel model
+    required property var model
     required property Component delegate
 
     ListView {

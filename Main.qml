@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import UI
+import Backend
 
 ApplicationWindow {
     id: root
@@ -9,8 +10,17 @@ ApplicationWindow {
     height: 500
     visible: true
     title: "ToDo App"
-    TodoModel {
-        id: todoModel
+    // TodoModel {
+    //     id: todoModel
+    // }
+
+    BackendModel {
+        id: backendModel
+    }
+
+    TodoManager {
+        id: manager
+        model: backendModel
     }
 
     ColumnLayout {
@@ -25,31 +35,36 @@ ApplicationWindow {
         TodoCount {
             id: countSection
             Layout.fillWidth: true
-            doneCount: todoModel.doneCount
-            totalCount: todoModel.totalCount
-            todoCount: todoModel.todoCount
-            onFilterChanged: todoModel.setFilter(countSection.filter)
+            // doneCount: todoModel.doneCount
+            // totalCount: todoModel.totalCount
+            // todoCount: todoModel.todoCount
+            // onFilterChanged: todoModel.setFilter(countSection.filter)
         }
 
         TodoInput {
             Layout.fillWidth: true
             onTaskSubmitted: (text) => {
-                todoModel.addTask(text)
+                if (manager.addTask(text)) {
+                    console.log("Task added: " + text)
+                }
+                else {
+                    console.log("Add task failed: " + text)
+                }
             }
         }
         TodoListView {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.bottomMargin: 10
-            model: todoModel
+            model: backendModel
             delegate: Component {
                 TodoDelegate {
                     width: ListView.view.width
                     onDeleteRequested: (uuid) => {
-                        todoModel.removeTask(uuid)
+                        manager.removeTask(uuid)
                     }
                     onCheckedChanged: (uuid, checked) => {
-                        todoModel.setDone(uuid, checked)
+                        manager.setDone(uuid, checked)
                     }
                 }
             }

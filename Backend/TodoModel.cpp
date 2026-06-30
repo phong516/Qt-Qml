@@ -1,4 +1,5 @@
 #include "TodoModel.hpp"
+#include <algorithm>
 
 int TodoModel::rowCount(const QModelIndex & parent) const
 {
@@ -33,4 +34,37 @@ QHash<int,QByteArray> TodoModel::roleNames() const
     roles[TaskRole::descriptionRole] = "desc";
     roles[TaskRole::doneRole] = "done";
     return roles;
+}
+
+bool TodoModel::addTask(const Task_t &task)
+{
+    m_data.push_back(task);
+    return true;
+}
+
+bool TodoModel::removeTask(const QString &uuid)
+{
+    const auto it = std::find_if(m_data.begin(), m_data.end(), [&uuid](const Task_t& task) { return task.uuid == uuid; });
+    if (it != m_data.end())
+    {
+        m_data.erase(it);
+        return true;
+    }
+    return false;
+}
+
+bool TodoModel::setDone(const QString &uuid, bool done)
+{
+    const auto it = std::find_if(m_data.begin(), m_data.end(), [&uuid](const Task_t& task) { return task.uuid == uuid; });
+    if (it != m_data.end())
+    {
+        it->done = done;
+        return true;
+    }
+    return false;
+}
+
+bool TodoModel::setFilter(const QString &uuid, bool filter)
+{
+    return true;
 }

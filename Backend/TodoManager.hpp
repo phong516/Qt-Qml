@@ -1,11 +1,12 @@
 #pragma once
 #include <QObject>
 #include <QtQml>
-#include <TodoModel.hpp>
+#include "TodoModel.hpp"
 
 class TodoManager: public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(TodoModel* model WRITE setModel)
     QML_NAMED_ELEMENT(TodoManager);
 public:
     explicit TodoManager(QObject* parent = nullptr, TodoModel* model = nullptr): QObject(parent), m_model(model) {}

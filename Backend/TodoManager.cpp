@@ -12,13 +12,12 @@ bool TodoManager::addTask(const QString& desc)
 {
     if (!m_model)
         return false;
-    QVariantMap task{
-        {"uuid", QUuid::createUuid().toString()},
-        {"desc", desc},
-        {"done", false}
+    Task_t task {
+        .uuid = QUuid::createUuid().toString(),
+        .description = desc,
+        .done = false
     };
-    QVariant taskVariant = QVariant::fromValue(task);
-    QMetaObject::invokeMethod(m_model, "append", Q_ARG(QVariant, taskVariant));
+    m_model->addTask(task);
     return true;
 }
 
@@ -26,12 +25,19 @@ bool TodoManager::removeTask(const QString& uuid)
 {
     if (!m_model)
         return false;
-    for (int i = 0; i < m_model->property("count").toInt(); ++i) {
-        QVariantMap task = m_model->property("get").value<QVariantList>().at(i).toMap();
-        if (task["uuid"].toString() == uuid) {
-            QMetaObject::invokeMethod(m_model, "remove", Q_ARG(int, i));
-            return true;
-        }
-    }
-    return false;
+    m_model->removeTask(uuid);
+    return true;
+}
+
+bool TodoManager::setDone(const QString &uuid, bool done)
+{
+    if (!m_model)
+        return false;
+    m_model->setDone(uuid, done);
+    return true;
+}
+
+bool TodoManager::setFilter(Filter filter)
+{
+    return true;
 }
