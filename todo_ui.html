@@ -63,7 +63,7 @@
             <h3>Student Progress</h3>
             <ul>
                 <li><strong>Current Level:</strong> Intermediate</li>
-                <li><strong>Current Task:</strong> Task 008 — Refactor Todo QML Project for C++ Backend Integration (Pending)</li>
+                <li><strong>Current Task:</strong> Task 007 — Explore Animations & Transitions (Pending)</li>
                 <li><strong>Skills Practiced:</strong>
                     <ul>
                         <li>Using <code>Column</code> for vertical layout</li>
@@ -74,6 +74,9 @@
                         <li>Signal chains across multiple components</li>
                         <li><code>ListModel.setProperty()</code> for safe model mutation</li>
                         <li>UUID-based item identity in QML/JS</li>
+                        <li>C++ <code>QAbstractListModel</code> integration with QML</li>
+                        <li>Proxy pattern for data filtering (<code>QSortFilterProxyModel</code>)</li>
+                        <li>Context properties for exposing C++ objects to QML</li>
                     </ul>
                 </li>
                 <li><strong>Challenges Faced:</strong>
@@ -187,9 +190,53 @@ classDiagram
         </div>
 
         <div class="task-section">
-            <h3>Task 008 — Refactor Todo QML Project for C++ Backend Integration (Pending)</h3>
+            <h3>Task 006 — C++ Backend Integration</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
+                <li><strong>Score:</strong> C++ Architecture: 9/10, QML-C++ Binding: 9/10, Model Implementation: 10/10, Proxy Pattern: 9/10</li>
+                <li><strong>Goal:</strong> Integrate C++ <code>TodoManager</code> as backend model for QML</li>
+                <li><strong>Learning Targets Achieved:</strong>
+                    <ul>
+                        <li>Exposed C++ <code>QAbstractListModel</code> to QML via <code>QML_NAMED_ELEMENT</code></li>
+                        <li>Used <code>qt_add_qml_module</code> for C++ plugin registration in Backend module</li>
+                        <li>Replaced QML <code>ListModel</code> with C++ <code>TodoModel</code> + <code>TodoFilter</code> proxy</li>
+                        <li>Understood QML-C++ data binding through context properties</li>
+                    </ul>
+                </li>
+                <li><strong>Key Implementation Details:</strong>
+                    <ul>
+                        <li><code>TodoModel</code> (C++) implements <code>QAbstractListModel</code> with role-based data access</li>
+                        <li><code>TodoFilter</code> (C++) extends <code>QSortFilterProxyModel</code> for filtering logic</li>
+                        <li><code>TodoManager</code> (C++) exposes counted properties and invokable methods to QML</li>
+                        <li><code>main.cpp</code> wires manager → model → filter → QML context property</li>
+                        <li>QML ListView binds to <code>manager.proxyModel</code> (filtered C++ model)</li>
+                        <li>Delegate accesses role names: <code>uuid</code>, <code>desc</code>, <code>done</code> from C++ model</li>
+                    </ul>
+                </li>
+                <li><strong>Architecture Benefits:</strong>
+                    <ul>
+                        <li>Proxy pattern separates filtering from data — single model, multiple views possible</li>
+                        <li>C++ model scales better than QML ListModel for 1000+ items</li>
+                        <li>Role-based data access allows safe refactoring without breaking UI bindings</li>
+                        <li>Context properties expose objects to QML root without module registration</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="task-section">
+            <h3>Task 007 — Explore Animations & Transitions (Pending)</h3>
             <ul>
                 <li><strong>Status:</strong> <span class="status-pending">Not Started</span></li>
+                <li><strong>Goal:</strong> Add smooth transitions and animations to the Todo app</li>
+                <li><strong>Learning Target:</strong> Use <code>Behavior</code>, <code>PropertyAnimation</code>, and <code>Transition</code> for polished UX</li>
+            </ul>
+        </div>
+
+        <div class="task-section">
+            <h3>Task 008 — Refactor Todo QML Project for C++ Backend Integration (Completed)</h3>
+            <ul>
+                <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
                 <li><strong>Goal:</strong> Refactor the current QML Todo application into a production-style architecture suitable for Qt/QML applications, preparing for C++ backend integration.</li>
                 <li><strong>Learning Target:</strong> Separate presentation from business logic, implement a dedicated QML backend object, maintain ListModel as pure data model, separate UI components, utilize signals/properties/function calls for communication, design for C++ integration.</li>
             </ul>
@@ -197,19 +244,11 @@ classDiagram
 
         <h2>Previous Tasks</h2>
         <div class="task-section">
-            <h3>Task 007 — Hello World Layout</h3>
+            <h3>Task 001 — Traffic Light</h3>
             <ul>
                 <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
-                <li><strong>Score:</strong> Visual Accuracy: 10/10, Layout Logic: 10/10, Anchor Understanding: 10/10, Cleanliness: 10/10</li>
-                <li><strong>Feedback:</strong> Successfully implemented a centered "Hello World!" in a responsive window using Rectangle and Text elements with anchors.</li>
-            </ul>
-        </div>
-        <div class="task-section">
-            <h3>Task 006 — C++ Backend Integration (Pending)</h3>
-            <ul>
-                <li><strong>Status:</strong> <span class="status-pending">Not Started</span></li>
-                <li><strong>Goal:</strong> Integrate C++ <code>TodoManager</code> as backend model for QML</li>
-                <li><strong>Learning Target:</strong> Expose C++ <code>QAbstractListModel</code> to QML, use <code>qt_add_qml_module</code> for C++ plugin registration</li>
+                <li><strong>Score:</strong> Visual Accuracy: 9/10, Layout Logic: 8/10, Anchor Understanding: 7/10, Cleanliness: 8/10</li>
+                <li><strong>Feedback:</strong> Successfully implemented a vertical traffic light layout. Minor issues with <code>anchors.margins</code> understanding, but resolved. Good use of <code>Column</code> and <code>spacing</code>.</li>
             </ul>
         </div>
         <div class="task-section">
@@ -217,7 +256,7 @@ classDiagram
             <ul>
                 <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
                 <li><strong>Score:</strong> Visual Accuracy: 9/10, Layout Logic: 8/10, Anchor Understanding: 8/10, Cleanliness: 8/10</li>
-                <li><strong>Feedback:</strong> Profile card layout is visually correct and dynamic height is implemented. Minor issues with `implicitHeight` handling initially, but resolved. Good use of `Image` and `Text` components.</li>
+                <li><strong>Feedback:</strong> Profile card layout is visually correct and dynamic height is implemented. Minor issues with <code>implicitHeight</code> handling initially, but resolved. Good use of <code>Image</code> and <code>Text</code> components.</li>
             </ul>
         </div>
         <div class="task-section">
@@ -225,7 +264,7 @@ classDiagram
             <ul>
                 <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
                 <li><strong>Score:</strong> Visual Accuracy: 10/10, Layout Logic: 9/10, Anchor Understanding: 9/10, Cleanliness: 9/10</li>
-                <li><strong>Feedback:</strong> Excellent use of `GridLayout` for arranging buttons in a grid. Dynamic layout with proper use of `Layout.fillHeight` and `Layout.fillWidth`. Minor improvements can be made in spacing and alignment for better aesthetics.</li>
+                <li><strong>Feedback:</strong> Excellent use of <code>GridLayout</code> for arranging buttons in a grid. Dynamic layout with proper use of <code>Layout.fillHeight</code> and <code>Layout.fillWidth</code>. Minor improvements can be made in spacing and alignment for better aesthetics.</li>
             </ul>
         </div>
         <div class="task-section">
@@ -241,8 +280,8 @@ classDiagram
             <ul>
                 <li><strong>Status:</strong> <span class="status-completed">Completed</span></li>
                 <li><strong>Components:</strong> <code>TodoModel</code>, <code>TodoDelegate</code>, <code>TodoInput</code>, <code>TodoListView</code>, <code>TodoCount</code>, <code>Main.qml</code></li>
-                <li><strong>Score:</strong> Architecture: 9/10, Signal Design: 9/10, Filtering Logic: 10/10, Cleanliness: 9/10</li>
-                <li><strong>Feedback:</strong> Clean component decomposition with well-defined signals and <code>required property</code> contracts. Excellent use of <code>DelegateModel</code> + <code>DelegateModelGroup</code> for all/done/todo filtering. Two bugs caught and fixed during development. UUID-based task identity is a solid design choice.</li>
+                <li><strong>Score:</strong> Architecture: 9/10, Signal Design: 9/10, Filtering Logic: 10/10, Cleanliness: 9/10, Modularity/Reusability: 10/10</li>
+                <li><strong>Feedback:</strong> Clean component decomposition with well-defined signals and <code>required property</code> contracts. Excellent use of <code>DelegateModel</code> + <code>DelegateModelGroup</code> for all/done/todo filtering. Two bugs caught and fixed during development. UUID-based task identity is a solid design choice. Module separation completed with TodoModel in Model module and UI components in UI module.</li>
             </ul>
         </div>
     </div>

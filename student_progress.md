@@ -18,11 +18,13 @@
   - Understanding `DelegateDataObject` structure (`.model`, `.inDone`, `.inTodo`)
 - **Next Steps:**
   - Explore animations and transitions
-  - Practice C++ `QAbstractListModel` integration
+  - Practice custom roles and advanced filtering
+  - Extend C++ model with sorting capabilities
 
 ### Current Task
-- **Task:** Task 006 — C++ Backend Integration (Pending)
+- **Task:** Task 006 — C++ Backend Integration (Completed)
 - **Goal:** Integrate C++ `TodoManager` as backend model for QML
+- **Status:** Completed — C++ backend fully integrated and functional
 
 ### Task 001 — Traffic Light
 - **Status:** Completed
@@ -91,11 +93,28 @@
   - UUID-based task identity is a solid design choice.
   - **Module separation completed:** TodoModel moved to Model module, UI components moved to UI module for better reusability.
 
-### Task 006 — C++ Backend Integration (Pending)
-- **Status:** Not Started
+### Task 006 — C++ Backend Integration
+- **Status:** Completed
+- **Score:**
+  - **C++ Architecture:** 9/10
+  - **QML-C++ Binding:** 9/10
+  - **Model Implementation:** 10/10
+  - **Proxy Pattern:** 9/10
 - **Goal:** Integrate C++ `TodoManager` as backend model for QML
-- **Learning Target:** 
-  - Expose C++ `QAbstractListModel` to QML
-  - Use `qt_add_qml_module` for C++ plugin registration
-  - Replace QML `ListModel` with C++ model
-  - Understand QML-C++ data binding
+- **Completed Learning Targets:**
+  - ✓ Expose C++ `QAbstractListModel` to QML via `QML_NAMED_ELEMENT`
+  - ✓ Use `qt_add_qml_module` for C++ plugin registration in Backend module
+  - ✓ Replace QML `ListModel` with C++ `TodoModel` + `TodoFilter` proxy
+  - ✓ Understand QML-C++ data binding through context properties
+- **Implementation Details:**
+  - `TodoModel` (C++) implements `QAbstractListModel` with role-based data access
+  - `TodoFilter` (C++) extends `QSortFilterProxyModel` for filtering logic
+  - `TodoManager` (C++) exposes counted properties and invokable methods to QML
+  - `main.cpp` wires manager → model → filter → QML context property
+  - QML ListView binds to `manager.proxyModel` (filtered C++ model)
+  - Delegate accesses role names: `uuid`, `desc`, `done` from C++ model
+- **Key Insights:**
+  - Using proxy pattern separates filtering from data — single model, multiple views possible
+  - C++ model scales better than QML ListModel for 1000+ items
+  - Role-based data access allows safe refactoring without breaking UI bindings
+  - Context properties expose objects to QML root — alternative to QML modules for managers

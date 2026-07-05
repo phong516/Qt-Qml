@@ -32,11 +32,7 @@ ApplicationWindow {
         TodoInput {
             Layout.fillWidth: true
             onTaskSubmitted: text => {
-                if (manager.addTask(text)) {
-                    console.log("Task added: " + text);
-                } else {
-                    console.log("Add task failed: " + text);
-                }
+                manager.addTask(text)
             }
         }
         ListView {

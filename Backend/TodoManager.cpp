@@ -11,6 +11,7 @@ bool TodoManager::setModel(TodoModel *model)
 bool TodoManager::setProxyModel(TodoFilter *filterModel)
 {
     m_proxyModel = filterModel;
+    emit proxyModelChanged();
     return true;
 }
 
@@ -23,6 +24,7 @@ bool TodoManager::addTask(const QString &desc)
         .description = desc,
         .done = false};
     m_model->addTask(task);
+    emit countChanged();
     return true;
 }
 
@@ -31,6 +33,7 @@ bool TodoManager::removeTask(const QString &uuid)
     if (!m_model)
         return false;
     m_model->removeTask(uuid);
+    emit countChanged();
     return true;
 }
 
@@ -39,11 +42,24 @@ bool TodoManager::setDone(const QString &uuid, bool done)
     if (!m_model)
         return false;
     m_model->setDone(uuid, done);
+    emit countChanged();
     return true;
 }
 
-bool TodoManager::setFilter(Filter filter)
+bool TodoManager::setFilter(const QString& filter)
 {
+    if (!m_proxyModel)
+        return false;
+    const QHash<QString, TodoFilter::Filter> filterMap{
+        {"all", TodoFilter::All},
+        {"done", TodoFilter::Done},
+        {"todo", TodoFilter::Todo}
+    };
+    auto it = filterMap.find(filter);
+    if (it != filterMap.end())
+    {
+        m_proxyModel->setFilter(it.value());
+    }
     return true;
 }
 

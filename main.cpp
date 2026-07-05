@@ -8,16 +8,16 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
-    
-    TodoManager manager{};
-    TodoModel model{};
-    TodoFilter filter{};
+    TodoManager manager{&app};
+    TodoModel model{&manager};
+    TodoFilter filter{&model};
     manager.setModel(&model);
     filter.setSourceModel(&model);
     manager.setProxyModel(&filter);
+
+    QQmlApplicationEngine engine;
     
-    engine.rootContext()->setContextProperty("TodoManager", &manager);
+    engine.rootContext()->setContextProperty("manager", &manager);
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
     QObject::connect(
