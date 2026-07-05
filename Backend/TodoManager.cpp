@@ -2,26 +2,31 @@
 #include <QUuid>
 #include <QVariant>
 
-bool TodoManager::setModel(TodoModel* model)
+bool TodoManager::setModel(TodoModel *model)
 {
     m_model = model;
     return true;
 }
 
-bool TodoManager::addTask(const QString& desc)
+bool TodoManager::setProxyModel(TodoFilter *filterModel)
+{
+    m_proxyModel = filterModel;
+    return true;
+}
+
+bool TodoManager::addTask(const QString &desc)
 {
     if (!m_model)
         return false;
-    Task_t task {
+    Task_t task{
         .uuid = QUuid::createUuid().toString(),
         .description = desc,
-        .done = false
-    };
+        .done = false};
     m_model->addTask(task);
     return true;
 }
 
-bool TodoManager::removeTask(const QString& uuid)
+bool TodoManager::removeTask(const QString &uuid)
 {
     if (!m_model)
         return false;
@@ -40,4 +45,24 @@ bool TodoManager::setDone(const QString &uuid, bool done)
 bool TodoManager::setFilter(Filter filter)
 {
     return true;
+}
+
+int TodoManager::totalCount() const
+{
+    return m_model ? m_model->totalCount() : 0;
+}
+
+int TodoManager::doneCount() const
+{
+    return m_model ? m_model->doneCount() : 0;
+}
+
+int TodoManager::todoCount() const
+{
+    return m_model ? m_model->todoCount() : 0;
+}
+
+TodoFilter *TodoManager::proxyModel() const
+{
+    return m_proxyModel;
 }

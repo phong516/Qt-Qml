@@ -37,7 +37,10 @@ public:
     bool addTask(const Task_t& task);
     bool removeTask(const QString& uuid);
     bool setDone(const QString& uuid, bool done);
-    bool setFilter(const QString& uuid, bool filter);
+
+    int totalCount() const;
+    int doneCount() const;
+    int todoCount() const;
 
 private:
     QList<Task_t> m_data{};

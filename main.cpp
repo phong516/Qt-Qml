@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include "Backend/TodoManager.hpp"
 #include "Backend/TodoModel.hpp"
+#include "Backend/TodoFilter.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -9,11 +10,14 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     
-    // TodoManager manager;
-    // TodoModel model;
-    // manager.setModel(&model);
+    TodoManager manager{};
+    TodoModel model{};
+    TodoFilter filter{};
+    manager.setModel(&model);
+    filter.setSourceModel(&model);
+    manager.setProxyModel(&filter);
     
-    // engine.rootContext()->setContextProperty("TodoManager", &manager);
+    engine.rootContext()->setContextProperty("TodoManager", &manager);
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
     QObject::connect(

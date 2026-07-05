@@ -4,7 +4,6 @@ qt_add_qml_module(UI
     QML_FILES
         TodoDelegate.qml
         TodoInput.qml
-        TodoListView.qml
         TodoCount.qml
         TodoModel.qml
 )
