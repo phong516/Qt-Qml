@@ -1,0 +1,5 @@
+module Todo 1.0
+TodoDelegate 1.0 TodoDelegate.qml
+TodoInput 1.0 TodoInput.qml
+TodoCount 1.0 TodoCount.qml
+TodoModel 1.0 TodoModel.qml

@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Todo
+import UI
+import Backend
 
 ApplicationWindow {
     id: root
@@ -9,9 +10,6 @@ ApplicationWindow {
     height: 500
     visible: true
     title: "ToDo App"
-    TodoModel {
-        id: todoModel
-    }
 
     ColumnLayout {
         id: layout
@@ -25,32 +23,30 @@ ApplicationWindow {
         TodoCount {
             id: countSection
             Layout.fillWidth: true
-            doneCount: todoModel.doneCount
-            totalCount: todoModel.totalCount
-            todoCount: todoModel.todoCount
-            onFilterChanged: todoModel.setFilter(countSection.filter)
+            doneCount: manager.doneCount
+            totalCount: manager.totalCount
+            todoCount: manager.todoCount
+            onFilterChanged: manager.setFilter(countSection.filter)
         }
 
         TodoInput {
             Layout.fillWidth: true
-            onTaskSubmitted: (text) => {
-                todoModel.addTask(text)
+            onTaskSubmitted: text => {
+                manager.addTask(text)
             }
         }
-        TodoListView {
+        ListView {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.bottomMargin: 10
-            model: todoModel
-            delegate: Component {
-                TodoDelegate {
-                    width: ListView.view.width
-                    onDeleteRequested: (uuid) => {
-                        todoModel.removeTask(uuid)
-                    }
-                    onCheckedChanged: (uuid, checked) => {
-                        todoModel.setDone(uuid, checked)
-                    }
+            model: manager.proxyModel
+            delegate: TodoDelegate {
+                width: ListView.view.width
+                onDeleteRequested: uuid => {
+                    manager.removeTask(uuid);
+                }
+                onCheckedChanged: (uuid, checked) => {
+                    manager.setDone(uuid, checked);
                 }
             }
         }
