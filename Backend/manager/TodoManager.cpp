@@ -8,7 +8,7 @@ bool TodoManager::setModel(TodoModel *model)
     return true;
 }
 
-bool TodoManager::setProxyModel(TodoFilter *filterModel)
+bool TodoManager::setProxyModel(TodoProxyModel *filterModel)
 {
     m_proxyModel = filterModel;
     emit proxyModelChanged();
@@ -50,10 +50,10 @@ bool TodoManager::setFilter(const QString& filter)
 {
     if (!m_proxyModel)
         return false;
-    const QHash<QString, TodoFilter::Filter> filterMap{
-        {"all", TodoFilter::All},
-        {"done", TodoFilter::Done},
-        {"todo", TodoFilter::Todo}
+    const QHash<QString, TodoProxyModel::Filter> filterMap{
+        {"all", TodoProxyModel::All},
+        {"done", TodoProxyModel::Done},
+        {"todo", TodoProxyModel::Todo}
     };
     auto it = filterMap.find(filter);
     if (it != filterMap.end())
@@ -78,7 +78,7 @@ int TodoManager::todoCount() const
     return m_model ? m_model->todoCount() : 0;
 }
 
-TodoFilter *TodoManager::proxyModel() const
+TodoProxyModel *TodoManager::proxyModel() const
 {
     return m_proxyModel;
 }

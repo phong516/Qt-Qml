@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import UI
-import Backend
 
 ApplicationWindow {
     id: root
@@ -40,6 +39,7 @@ ApplicationWindow {
             Layout.fillHeight: true
             Layout.bottomMargin: 10
             model: manager.proxyModel
+            clip: true
             delegate: TodoDelegate {
                 width: ListView.view.width
                 onDeleteRequested: uuid => {

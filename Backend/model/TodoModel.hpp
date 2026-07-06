@@ -2,7 +2,6 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QVariant>
-#include <QtQml>
 
 struct Todo {
     QString uuid;
@@ -26,8 +25,6 @@ struct Task_t {
 class TodoModel : public QAbstractListModel
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(BackendModel);
-
 public:
     explicit TodoModel(QObject * parent = nullptr): QAbstractListModel(parent) {}
     int rowCount(const QModelIndex &parent) const override;

@@ -1,27 +1,25 @@
 #pragma once
 #include <QObject>
 #include <QtQml>
-#include "TodoModel.hpp"
-#include "TodoFilter.hpp"
+#include "model/TodoModel.hpp"
+#include "proxy/TodoProxyModel.hpp"
 
 class TodoManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(TodoFilter* proxyModel READ proxyModel NOTIFY proxyModelChanged)
+    Q_PROPERTY(TodoProxyModel* proxyModel READ proxyModel NOTIFY proxyModelChanged)
 
     Q_PROPERTY(int totalCount READ totalCount NOTIFY countChanged)
     Q_PROPERTY(int doneCount READ doneCount NOTIFY countChanged)
     Q_PROPERTY(int todoCount READ todoCount NOTIFY countChanged)
-
-    QML_NAMED_ELEMENT(TodoManager);
 
 public:
     explicit TodoManager(QObject *parent = nullptr) : QObject(parent) {}
 
 
     bool setModel(TodoModel *model);
-    bool setProxyModel(TodoFilter *filterModel);
+    bool setProxyModel(TodoProxyModel *filterModel);
 
     Q_INVOKABLE bool addTask(const QString &desc);
     Q_INVOKABLE bool removeTask(const QString &uuid);
@@ -32,7 +30,7 @@ public:
     int doneCount() const;
     int todoCount() const;
 
-    TodoFilter* proxyModel() const;
+    TodoProxyModel* proxyModel() const;
 
 signals:
     void proxyModelChanged();
@@ -40,5 +38,5 @@ signals:
 
 private:
     TodoModel *m_model{nullptr};
-    TodoFilter *m_proxyModel{nullptr};
+    TodoProxyModel *m_proxyModel{nullptr};
 };
