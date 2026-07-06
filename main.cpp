@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "Backend/TodoManager.hpp"
+#include "Backend/manager/TodoManager.hpp"
 #include "Backend/TodoModel.hpp"
 #include "Backend/TodoFilter.hpp"
 
