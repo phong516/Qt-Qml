@@ -50,10 +50,10 @@ bool TodoManager::setFilter(const QString& filter)
 {
     if (!m_proxyModel)
         return false;
-    const QHash<QString, TodoProxyModel::Filter> filterMap{
-        {"all", TodoProxyModel::All},
-        {"done", TodoProxyModel::Done},
-        {"todo", TodoProxyModel::Todo}
+    const QHash<QString, Filter> filterMap{
+        {"all", All},
+        {"done", Done},
+        {"todo", Todo}
     };
     auto it = filterMap.find(filter);
     if (it != filterMap.end())

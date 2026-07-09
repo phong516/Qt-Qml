@@ -2,25 +2,7 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QVariant>
-
-struct Todo {
-    QString uuid;
-    QString description;
-    bool done;
-};
-
-enum TaskRole
-{
-    uuidRole = Qt::UserRole + 1,
-    descriptionRole,
-    doneRole
-};
-
-struct Task_t {
-    QString uuid;
-    QString description;
-    bool done;
-}; 
+#include "types/TodoTypes.hpp"
 
 class TodoModel : public QAbstractListModel
 {

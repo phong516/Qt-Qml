@@ -63,7 +63,7 @@
             <h3>Student Progress</h3>
             <ul>
                 <li><strong>Current Level:</strong> Intermediate</li>
-                <li><strong>Current Task:</strong> Task 007 — Explore Animations & Transitions (Pending)</li>
+                <li><strong>Current Task:</strong> Task 007 — Persistence Layer (In Progress)</li>
                 <li><strong>Skills Practiced:</strong>
                     <ul>
                         <li>Using <code>Column</code> for vertical layout</li>
@@ -225,11 +225,19 @@ classDiagram
         </div>
 
         <div class="task-section">
-            <h3>Task 007 — Explore Animations & Transitions (Pending)</h3>
+            <h3>Task 007 — Persistence Layer (In Progress)</h3>
             <ul>
-                <li><strong>Status:</strong> <span class="status-pending">Not Started</span></li>
-                <li><strong>Goal:</strong> Add smooth transitions and animations to the Todo app</li>
-                <li><strong>Learning Target:</strong> Use <code>Behavior</code>, <code>PropertyAnimation</code>, and <code>Transition</code> for polished UX</li>
+                <li><strong>Status:</strong> <span class="status-in-progress">In Progress</span></li>
+                <li><strong>Goal:</strong> Persist tasks across app restarts via a swappable storage backend. JSON file is the first concrete impl; a DB backend can drop in later without touching model or UI.</li>
+                <li><strong>Design:</strong>
+                    <ul>
+                        <li><code>TodoStorage</code> (abstract <code>QObject</code>): defines <code>load(QList&lt;Task_t&gt;&amp;)</code> + <code>save(const QList&lt;Task_t&gt;&amp;)</code> — the WHAT, not the HOW</li>
+                        <li><code>JsonTodoStorage</code> (concrete): serializes to a single <code>.json</code> file via <code>QJsonDocument</code> + <code>QSaveFile</code></li>
+                        <li><code>TodoManager</code> holds a <code>TodoStorage*</code>; calls <code>load()</code> on startup, <code>save()</code> after every mutation</li>
+                        <li>Future <code>SqlTodoStorage</code> implements same interface — no model/UI changes</li>
+                    </ul>
+                </li>
+                <li><strong>Learning Target:</strong> Dependency Inversion (interface vs impl), <code>QJsonDocument</code> serialization, <code>QSaveFile</code> atomic writes, <code>QStandardPaths::AppDataLocation</code>, load-on-start / save-on-change wiring</li>
             </ul>
         </div>
 

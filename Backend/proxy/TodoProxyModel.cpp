@@ -1,5 +1,4 @@
 #include "TodoProxyModel.hpp"
-#include "model/TodoModel.hpp"
 
 bool TodoProxyModel::setFilter(Filter filter)
 {
