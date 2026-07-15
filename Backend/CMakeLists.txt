@@ -11,3 +11,4 @@ target_include_directories(Backend
 add_subdirectory(manager)
 add_subdirectory(model)
 add_subdirectory(proxy)
+add_subdirectory(storage)

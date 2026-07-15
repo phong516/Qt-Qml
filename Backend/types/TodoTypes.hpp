@@ -2,7 +2,8 @@
 
 #include <QString>
 
-struct Todo {
+struct Todo
+{
     QString uuid;
     QString description;
     bool done;
@@ -15,7 +16,8 @@ enum TaskRole
     doneRole
 };
 
-struct Task_t {
+struct Task_t
+{
     QString uuid;
     QString description;
     bool done;
@@ -27,3 +29,21 @@ enum Filter
     Done,
     Todo
 };
+
+enum class StorageError
+{
+    None,
+    OpenFailed,
+    PermissionDenied,
+    InvalidFormat,
+    DiskFull,
+    Unknown
+} struct StorageResult
+{
+    StorageError error;
+    QString message;
+    bool ok() const
+    {
+        return error == StorageError::None;
+    }
+}
