@@ -25,6 +25,7 @@ bool TodoManager::addTask(const QString &desc)
         .done = false};
     m_model->addTask(task);
     emit countChanged();
+    // TODO: m_storage->save(m_model->tasks());
     return true;
 }
 
@@ -34,6 +35,7 @@ bool TodoManager::removeTask(const QString &uuid)
         return false;
     m_model->removeTask(uuid);
     emit countChanged();
+    // TODO: m_storage->save(m_model->tasks());
     return true;
 }
 
@@ -43,6 +45,7 @@ bool TodoManager::setDone(const QString &uuid, bool done)
         return false;
     m_model->setDone(uuid, done);
     emit countChanged();
+    // TODO: m_storage->save(m_model->tasks());
     return true;
 }
 

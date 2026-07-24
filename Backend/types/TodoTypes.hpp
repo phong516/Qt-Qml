@@ -35,10 +35,14 @@ enum class StorageError
     None,
     OpenFailed,
     PermissionDenied,
-    InvalidFormat,
+    EmptyFile,
+    ParseError,
+    InvalidJsonSchema,
+    InvalidTypeSchema,
     DiskFull,
     Unknown
-} struct StorageResult
+};
+struct StorageResult
 {
     StorageError error;
     QString message;
@@ -46,4 +50,4 @@ enum class StorageError
     {
         return error == StorageError::None;
     }
-}
+};
