@@ -1,19 +1,21 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "Backend/manager/TodoManager.hpp"
-#include "Backend/TodoModel.hpp"
-#include "Backend/TodoFilter.hpp"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     TodoManager manager{&app};
+    
     TodoModel model{&manager};
-    TodoFilter filter{&model};
+    TodoProxyModel filter{&model};
+    TodoStorageInterface *storage = new TodoJsonStorage("tasks.json");
     manager.setModel(&model);
     filter.setSourceModel(&model);
     manager.setProxyModel(&filter);
+    manager.setStorage(storage);
+    manager.run();
 
     QQmlApplicationEngine engine;
     

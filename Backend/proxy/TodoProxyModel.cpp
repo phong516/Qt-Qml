@@ -1,14 +1,13 @@
-#include "TodoFilter.hpp"
-#include "TodoModel.hpp"
+#include "TodoProxyModel.hpp"
 
-bool TodoFilter::setFilter(Filter filter)
+bool TodoProxyModel::setFilter(Filter filter)
 {
     m_filter = filter;
     invalidateRowsFilter();
     return true;
 }
 
-bool TodoFilter::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+bool TodoProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
     bool isDone = sourceModel()->data(index, doneRole).toBool();

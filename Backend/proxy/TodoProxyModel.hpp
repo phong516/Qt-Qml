@@ -1,19 +1,13 @@
 #pragma once
 #include <QSortFilterProxyModel>
+#include "types/TodoTypes.hpp"
 
-class TodoFilter : public QSortFilterProxyModel
+class TodoProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    explicit TodoFilter(QObject *parent = nullptr) : QSortFilterProxyModel(parent) {}
+    explicit TodoProxyModel(QObject *parent = nullptr) : QSortFilterProxyModel(parent) {}
 
-    enum Filter
-    {
-        All,
-        Done,
-        Todo
-    };
-    Q_ENUM(Filter)
     bool setFilter(Filter filter);
 
 protected:

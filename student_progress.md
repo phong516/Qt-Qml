@@ -20,11 +20,27 @@
   - Explore animations and transitions
   - Practice custom roles and advanced filtering
   - Extend C++ model with sorting capabilities
+  - Add a persistence layer behind an abstract storage interface
 
 ### Current Task
-- **Task:** Task 006 — C++ Backend Integration (Completed)
-- **Goal:** Integrate C++ `TodoManager` as backend model for QML
-- **Status:** Completed — C++ backend fully integrated and functional
+- **Task:** Task 007 — Persistence Layer (In Progress)
+- **Goal:** Add data persistence behind an abstract storage interface so the todo list survives app restarts. JSON file is the first concrete backend; a database backend can be dropped in later without touching the model or UI.
+- **Status:** In Progress — abstract `TodoStorage` interface + `JsonTodoStorage` implementation designed; wiring into `TodoManager` planned
+
+### Task 007 — Persistence Layer
+- **Status:** In Progress
+- **Goal:** Persist tasks across app restarts via a swappable storage backend
+- **Design:**
+  - `TodoStorage` (abstract base, `QObject`): defines `load(QList<Task_t>&)` and `save(const QList<Task_t>&)` — the WHAT, not the HOW
+  - `JsonTodoStorage` (concrete): serializes to a single `.json` file via `QJsonDocument` + `QSaveFile`
+  - `TodoManager` holds a `TodoStorage*`; calls `load()` on startup, `save()`/`persist()` after every mutation
+  - Future `SqlTodoStorage` can implement the same interface — no model/UI changes needed
+- **Learning Targets:**
+  - Separate persistence from business logic via an interface (Dependency Inversion)
+  - Use `QJsonDocument` / `QJsonArray` / `QJsonObject` for serialization
+  - Use `QSaveFile` for atomic writes (no corrupt file on crash)
+  - Use `QStandardPaths::AppDataLocation` for a portable data path
+  - Wire load-on-start / save-on-change in the manager
 
 ### Task 001 — Traffic Light
 - **Status:** Completed
