@@ -21,7 +21,8 @@ public:
     int doneCount() const;
     int todoCount() const;
 
-    // TODO: const QList<Task_t>& tasks() const;
+    const QList<Task_t>& tasks() const;
+    QList<Task_t>& tasks();
 
 private:
     QList<Task_t> m_data{};

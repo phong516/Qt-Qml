@@ -88,3 +88,13 @@ int TodoModel::todoCount() const
     return std::count_if(m_data.begin(), m_data.end(), [](const Task_t &task)
                          { return !task.done; });
 }
+
+const QList<Task_t> &TodoModel::tasks() const
+{
+    return m_data;
+}
+
+QList<Task_t> &TodoModel::tasks()
+{
+    return m_data;
+}

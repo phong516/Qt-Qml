@@ -6,14 +6,16 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    // TODO: pass file path to TodoManager (e.g. "tasks.json")
     TodoManager manager{&app};
+    
     TodoModel model{&manager};
     TodoProxyModel filter{&model};
+    TodoStorageInterface *storage = new TodoJsonStorage("tasks.json");
     manager.setModel(&model);
     filter.setSourceModel(&model);
     manager.setProxyModel(&filter);
-    // TODO: manager.loadTasks();
+    manager.setStorage(storage);
+    manager.run();
 
     QQmlApplicationEngine engine;
     

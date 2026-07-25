@@ -39,6 +39,7 @@ enum class StorageError
     ParseError,
     InvalidJsonSchema,
     InvalidTypeSchema,
+    WriteFailed,
     DiskFull,
     Unknown
 };

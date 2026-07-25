@@ -1,8 +1,10 @@
 #pragma once
 
-#include "TodoStorageInterface.hpp"
+#include "storage/TodoStorageInterface.hpp"
 #include <QFile>
-#include <JsonDocument>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 
 class TodoJsonStorage : public TodoStorageInterface
 {
